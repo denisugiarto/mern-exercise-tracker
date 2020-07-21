@@ -2,17 +2,18 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const Exercise = props => {
-    // eslint-disable-next-line no-unused-expressions
-    <tr>
-        <td>{props.exercise.username}</td>
-        <td>{props.exercise.description}</td>
-        <td>{props.exercise.duration}</td>
-        <td>{props.exercise.date.substring(0,10)}</td>
-        <td>
-            <Link to={"/edit/"+props.exercise._id}>edit</Link> | <button href="" onClick={() => { props.deleteExercise(props.exercise._id) }} >delete</button>
-        </td>
-    </tr>
+function Exercise(props) {
+    return (
+        <tr>
+            <td>{props.exercise.username}</td>
+            <td>{props.exercise.description}</td>
+            <td>{props.exercise.duration}</td>
+            <td>{props.exercise.date.substring(0,10)}</td>
+            <td>
+                <Link to={"/edit/"+props.exercise._id}>edit</Link> | <button href="" onClick={() => { props.deleteExercise(props.exercise._id) }} >delete</button>
+            </td>
+        </tr>
+    );
 }
 
 export default class ExercisesList extends Component {
@@ -25,7 +26,7 @@ export default class ExercisesList extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/exercises/')
+        axios.get(process.env.REACT_APP_API_URL + '/exercises/')
             .then(response => {
                 this.setState({ exercises: response.data });
             })
@@ -35,7 +36,7 @@ export default class ExercisesList extends Component {
     }
 
     deleteExercise(id) {
-        axios.delete('http://localhost:5000/exercises/'+id)
+        axios.delete(process.env.REACT_APP_API_URL + '/exercises/'+id)
             .then(res => console.log(res.data));
         
         this.setState({
