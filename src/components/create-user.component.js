@@ -27,11 +27,11 @@ export default class CreateUser extends Component {
         }
 
         console.log(user);
-        
 
         axios.post(process.env.REACT_APP_API_URL + '/users/add', user)
             .then(res => {
                 alert(res.data);
+                window.location = '/';
             })
             .catch(error => {
                 alert(error);

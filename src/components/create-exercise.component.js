@@ -70,10 +70,16 @@ export default class CreateExercise extends Component {
 
         console.log(exercise);
 
-        axios.post(process.env.REACT_APP_API_URL + 'exercises/add', exercise)
-        .then(res => console.log(res.data));
+        axios.post(process.env.REACT_APP_API_URL + '/exercises/add', exercise)
+        .then(res => {
+            alert(res.data);
+            window.location = '/';
+        })
+        .catch(error => {
+            alert(error);
+        });
 
-        window.location = '/';
+        
     }
 
     render() {
@@ -101,6 +107,7 @@ export default class CreateExercise extends Component {
                     <div className="form-group">
                         <label>Description: </label>
                         <input 
+                            autocomplete
                             type="text"
                             required
                             className="form-control"
